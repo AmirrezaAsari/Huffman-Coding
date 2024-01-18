@@ -1,0 +1,4 @@
+this text is for testing.
+test and only test. I have no other things to add.
+so I just say that this file is just for testing.
+I will use this text file as a test for huffmanCoding algorithm.
