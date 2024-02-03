@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <title>Text File Compression</title>
+      <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+      <link href="/public/style.css" rel="stylesheet" type="text/css">
+   </head>
+
+   <body>
+      <div class="container">
+        <h1>Text File Compression with Huffman Coding</h1>
+
+        <h2>upload a txt file to compress or upload a compressed file to decompress
+        </h2>
+        <p>
+          Please Upload a File ...
+        </p>
+        <div class="view">
+          <h3 id="output"></h3>
+          <form enctype="multipart/form-data" method="POST" action="/api/fileanalyse">
+            <input id="inputfield" type="file" name="upfile">
+            <input id="button" type="submit" value="Upload">
+          </form>
+        </div>
+      </div>
+      <div class="footer">
+        <p>Amirreza Asari, Arya Khoshnava</p>
+      </div>
+   </body>
+</html>
