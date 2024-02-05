@@ -56,8 +56,8 @@ function encodeFile(filePath){
     for (const char of text) {
         encodedText += codes[char];
     }
-
-    fs.writeFileSync('compressed.huf', encodedText);
+    const compressedData = Buffer.concat([Buffer.from(JSON.stringify(charCounts) + " "), Buffer.from(encodedText)]);
+    fs.writeFileSync('compressed.cmp', compressedData);
 }
 
 const filePath = "test.txt";
