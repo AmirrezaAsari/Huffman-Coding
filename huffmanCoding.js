@@ -56,11 +56,38 @@ function encodeFile(filePath){
     for (const char of text) {
         encodedText += codes[char];
     }
-    const compressedData = Buffer.concat([Buffer.from(JSON.stringify(charCounts) + " "), Buffer.from(encodedText)]);
+    const compressedData = Buffer.concat([Buffer.from(JSON.stringify(charCounts) + "\0"), Buffer.from(encodedText)]);
     fs.writeFileSync('compressed.cmp', compressedData);
 }
 
+
+
+function decodeFile(filePath){
+    const compressedData = fs.readFileSync(filePath);
+    const charCountsLastIndex = compressedData.indexOf(Buffer.from("\0"));
+    const charCountsStr = compressedData.slice(0, charCountsLastIndex);
+    const charCounts = JSON.parse(charCountsStr);
+    const tree = buildHuffmanTree(charCounts);
+
+    const encodedText = compressedData.slice(charCountsLastIndex + 1).toString('binary');
+    let currentNode = tree;
+    let decodedText = '';
+
+    for (const bit of encodedText) {
+        currentNode = bit === "0" ? currentNode.left : currentNode.right;
+        if(currentNode.data){
+            decodedText += currentNode.data;
+            currentNode = tree;
+        }
+
+    }
+    fs.writeFileSync("deCodedText.txt", decodedText);
+    return decodedText;
+}
+
+
 const filePath = "test.txt";
 encodeFile(filePath);
+decodeFile("compressed.cmp");
 
-module.exports = {encodeFile};
+module.exports = {encodeFile, decodeFile};
