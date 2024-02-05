@@ -62,3 +62,5 @@ function encodeFile(filePath){
 
 const filePath = "test.txt";
 encodeFile(filePath);
+
+module.exports = {encodeFile};
