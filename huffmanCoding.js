@@ -85,9 +85,4 @@ function decodeFile(filePath){
     return decodedText;
 }
 
-
-const filePath = "test.txt";
-encodeFile(filePath);
-decodeFile("compressed.cmp");
-
 module.exports = {encodeFile, decodeFile};
