@@ -32,3 +32,33 @@ function buildHuffmanTree(charCounts){
     }
     return tree[0];
 }
+
+function generateCodes(tree, code="", codes={}){
+    if(!tree) return;
+    if(tree.data){
+        codes[tree.data] = code;
+    }
+    else{
+        generateCodes(tree.left, code + "0", codes);
+        generateCodes(tree.right, code + "1", codes);
+    }
+}
+
+function encodeFile(filePath){
+    const charCounts = countCharacters(filePath);
+    const tree = buildHuffmanTree(charCounts);
+    const codes = {};
+    generateCodes(tree, '', codes);
+
+    const text = fs.readFileSync(filePath, 'utf-8');
+    let encodedText = "";
+
+    for (const char of text) {
+        encodedText += codes[char];
+    }
+
+    fs.writeFileSync('compressed.huf', encodedText);
+}
+
+const filePath = "test.txt";
+encodeFile(filePath);
